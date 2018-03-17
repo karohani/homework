@@ -21,9 +21,10 @@ public class App {
 		ConfigurableApplicationContext context = SpringApplication.run(App.class, args);
 
 		PersonRepository personRepository = context.getBean(PersonRepository.class);
-		personRepository.save(new Person("Hans", "Meiser"));
-		personRepository.save(new Person("Peter", "Lustig"));
-
+		Person testPerson = new Person();
+		testPerson.setEmail("mail");
+		personRepository.save(testPerson);
+//		personRepository.save(new Perso().setEmail("mail"));
 	}
 
 }

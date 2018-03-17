@@ -1,8 +1,16 @@
 package com.kakaopay.entity;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 
-
+@Getter
+@Setter
 @Entity
 @Table(name = "person")
 public class Person {
@@ -13,40 +21,13 @@ public class Person {
 
     private Long id;
 
-    @Column(name = "FIRSTNAME")
-    private String firstname;
-    @Column(name = "LASTNAME")
-    private String lastname;
 
-    public Person() {
-    }
+    private String email;
+    private String compressed;
 
-    public Person(String firstname, String lastname) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-    }
+    @CreationTimestamp
+    private Timestamp regdate;
+    @UpdateTimestamp
+    private Timestamp updatedate;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
 }

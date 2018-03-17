@@ -1,6 +1,8 @@
 package com.kakaohomework.demo;
 
 import com.kakaopay.App;
+import com.kakaopay.entity.Person;
+import com.kakaopay.service.StringTo12LengthMapping;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +24,27 @@ public class DemoApplicationTests {
 	@Test
 	public void contextLoads() throws Exception {
 
+		Assert.assertEquals("daum", "daum");
+	}
+
+	@Test
+	public void digestIntegrity() throws Exception{
+
+
+		StringTo12LengthMapping a = new StringTo12LengthMapping("www@gmail.com");
+		String d1 = a.digest();
+
+		StringTo12LengthMapping b = new StringTo12LengthMapping("www@gmail.com");
+		String d2 = b.digest();
+		Assert.assertEquals(d1 ,d2);
+	}
+
+	@Test
+	public void digestLength() throws Exception{
+
+		StringTo12LengthMapping a = new StringTo12LengthMapping("www@gmail.com");
+
+		Assert.assertEquals(12, a.digest().length());
 	}
 
 
