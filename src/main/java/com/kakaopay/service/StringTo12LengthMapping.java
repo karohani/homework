@@ -6,16 +6,17 @@ import lombok.Setter;
 
 public class StringTo12LengthMapping {
 
-    private String _trans;
+    private String trans;
+    private String origin;
 
     public StringTo12LengthMapping(String origin){
 
-        this._trans = origin;
+        this.origin = origin;
     }
 
     public String digest(){
 
-        return this._trans;
+        return this.origin;
 
     }
 

@@ -1,4 +1,5 @@
 package com.kakaopay.entity;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,8 +10,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "person")
 public class Person {
@@ -26,8 +26,8 @@ public class Person {
     private String compressed;
 
     @CreationTimestamp
-    private Timestamp regdate;
+    private Timestamp regDate;
     @UpdateTimestamp
-    private Timestamp updatedate;
+    private Timestamp updateDate;
 
 }

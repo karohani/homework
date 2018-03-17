@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class Main {
+public class MainController {
 
     @RequestMapping("/mainmenu")
     public String index() {
