@@ -19,6 +19,9 @@ public class StringTo12LengthMapping {
         this.origin = origin;
     }
 
+    public void setOrigin(String origin){
+        this.origin = origin;
+    }
 
     public BigInteger parseToInteger(String target){
 
@@ -43,7 +46,7 @@ public class StringTo12LengthMapping {
         }while(! apple.equals(BigInteger.ZERO));
 
 
-        if(16 - sb.length() > 0){
+        if(sb.length() < 16){
             char[] ca = new char[16-sb.length()];
             Arrays.fill(ca, 'A');
             sb.append(ca);

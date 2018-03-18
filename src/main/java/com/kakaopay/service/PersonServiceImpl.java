@@ -2,6 +2,7 @@ package com.kakaopay.service;
 
 import com.kakaopay.entity.Person;
 import com.kakaopay.repository.PersonRepository;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,15 @@ public class PersonServiceImpl implements PersonService {
     @Transactional
     public Person savePerson(Person person) {
 
-        return personRepositroy.saveAndFlush(person);
+        Person inPerson;
+
+        try{
+            inPerson = personRepositroy.save(person);
+
+        }catch(Exception e){
+            collisionSaveStrategy(person.getEmail());
+        }
+        return inPerson;
     }
 
     @Override
@@ -39,18 +48,35 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person collisionSaveStretegy(String email) {
+    public Person collisionSaveStrategy(String email) {
 
         StringTo12LengthMapping mapper = new StringTo12LengthMapping(email);
         String compressed = mapper.digest();
-        System.out.println("FIND" + compressed);
-        Person person = personRepositroy.findByCompressed(compressed);
-        return person;
+
+        do{
+                email += "a";
+                mapper.setOrigin(email);
+                compressed = mapper.digest();
+
+        }while(isExistCoupon(compressed));
+
+        Person collisionPerson = new Person();
+        collisionPerson.setEmail(email);
+        collisionPerson.setCompressed(compressed);
+
+        return savePerson(collisionPerson);
     }
 
     @Override
-    public Person findCompressed(String email) {
-        return null;
+    public Boolean isExistCoupon(String coupon) {
+
+        return personRepositroy.findByCompressed(coupon) != null;
+    }
+
+    @Override
+    public Boolean isExistEmail(String email) {
+
+        return personRepositroy.findByEmail(email) != null;
     }
 
 }

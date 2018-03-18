@@ -8,5 +8,6 @@ import java.util.Collection;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
-    public Person findByCompressed(String compressed);
+    Person findByCompressed(String compressed);
+    Person findByEmail(String Email);
 }

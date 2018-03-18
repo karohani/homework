@@ -21,7 +21,7 @@ public class PersonController {
 
 
     @RequestMapping(value="/person/list", method= RequestMethod.GET)
-    public List<Person> dog(@RequestParam("page") int page, @RequestParam("per_page") int n ){
+    public List<Person> dog(@RequestParam("page") int page, @RequestParam("perPage") int n ){
 
         List<Person> personList = personService.loadAll();
         return personList;
@@ -31,14 +31,19 @@ public class PersonController {
     public String successable(@PathVariable String email){
 
         Person person = personService.digestEmail(email);
+
+        if(personService.isExistEmail(email)){
+            return "fail";
+        }
+
         personService.savePerson(person);
         return person.getCompressed();
     }
 
-    @RequestMapping(value="/person/find/digest/{coupon}", method = RequestMethod.GET)
-    public Person findBy(@PathVariable String coupon){
+    @RequestMapping(value="/person/find/{coupon}", method = RequestMethod.GET)
+    public Person findByCoupon(@PathVariable String coupon){
 
-        Person person = personService.collisionSaveStretegy(coupon);
+        Person person = personService.findCompressed(coupon);
         System.out.println(person.toString());
         return person;
     }

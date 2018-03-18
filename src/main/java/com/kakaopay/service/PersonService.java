@@ -9,7 +9,8 @@ public interface PersonService {
     List<Person> loadAll();
     Person savePerson(Person person);
     Person digestEmail(String email);
-    Person collisionSaveStretegy(String email);
-    Person findCompressed(String email);
+    Person collisionSaveStrategy(String email);
+    Boolean isExistCoupon(String coupon);
+    Boolean isExistEmail(String email);
 
 }
