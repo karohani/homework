@@ -31,6 +31,7 @@ public class PersonController {
     public String successable(@PathVariable String email){
 
         Person person = personService.digestEmail(email);
+        System.out.println("EXIST?" + personService.isExistEmail(email));
 
         if(personService.isExistEmail(email)){
             return "fail";
@@ -38,14 +39,6 @@ public class PersonController {
 
         personService.savePerson(person);
         return person.getCompressed();
-    }
-
-    @RequestMapping(value="/person/find/{coupon}", method = RequestMethod.GET)
-    public Person findByCoupon(@PathVariable String coupon){
-
-        Person person = personService.findCompressed(coupon);
-        System.out.println(person.toString());
-        return person;
     }
 
 }

@@ -26,13 +26,15 @@ public class PersonServiceImpl implements PersonService {
     @Transactional
     public Person savePerson(Person person) {
 
-        Person inPerson;
+        Person inPerson = null;
 
         try{
             inPerson = personRepositroy.save(person);
 
         }catch(Exception e){
-            collisionSaveStrategy(person.getEmail());
+            
+            inPerson = collisionSaveStrategy(person.getEmail());
+
         }
         return inPerson;
     }
@@ -51,7 +53,7 @@ public class PersonServiceImpl implements PersonService {
     public Person collisionSaveStrategy(String email) {
 
         StringTo12LengthMapping mapper = new StringTo12LengthMapping(email);
-        String compressed = mapper.digest();
+        String compressed;
 
         do{
                 email += "a";
@@ -75,7 +77,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Boolean isExistEmail(String email) {
-
+        System.out.println("WHAT?" + personRepositroy.findByEmail(email));
         return personRepositroy.findByEmail(email) != null;
     }
 
