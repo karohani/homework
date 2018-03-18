@@ -17,9 +17,7 @@
     "axios": "^0.18.0",
     "bootstrap-vue": "^2.0.0-rc.2",
     "vue": "^2.5.2",
-    "vue-good-table": "^1.20.3",
-    "vue-router": "^3.0.1",
-    "vuetable": "^1.5.12"
+    "vue-router": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

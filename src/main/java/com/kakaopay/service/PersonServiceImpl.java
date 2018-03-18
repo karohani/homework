@@ -30,7 +30,6 @@ public class PersonServiceImpl implements PersonService {
     public Person digestEmail(Person person) {
 
         String origin = person.getEmail();
-
         StringTo12LengthMapping mapper = new StringTo12LengthMapping(origin);
         person.setCompressed(mapper.digest());
 

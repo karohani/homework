@@ -12,15 +12,4 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping("/common")
-    public String common() {
-        return "common";
-    }
-
-    @RequestMapping("/study")
-    public String commonstudy() {
-        return "study";
-    }
-
-
 }
