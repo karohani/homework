@@ -12,7 +12,13 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "person")
+
+@Table(name = "person", uniqueConstraints={
+        @UniqueConstraint(
+                columnNames={"email"}),
+        @UniqueConstraint(columnNames = {"compressed"})
+}
+)
 public class Person {
 
     @Id

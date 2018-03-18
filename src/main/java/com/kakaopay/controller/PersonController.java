@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 public class PersonController {
 
@@ -28,14 +29,15 @@ public class PersonController {
     }
 
 
-    @RequestMapping(value="/person/{compressed}", method= RequestMethod.GET)
-    public HashMap<String, Object> dog(@PathVariable String compressed){
+    @RequestMapping(value="/person/list", method= RequestMethod.GET)
+    public List<Person> dog(@RequestParam("page") int page, @RequestParam("per_page") int n ){
 
         HashMap<String, Object> map = new HashMap<>();
         List<Person> personList = personService.loadAll();
-        map.put("Coupon_List", personList);
-        map.put("query", compressed);
-        return map;
+        System.out.println(page + " " + n);
+        map.put("CouponList", personList);
+        map.put("query", "a");
+        return personList;
     }
 
     @RequestMapping(value="/person/insert/{email}", method = RequestMethod.GET)
@@ -43,7 +45,9 @@ public class PersonController {
 
         Person person = new Person();
         person.setEmail(email);
+        person = personService.digestEmail(person);
         personService.savePerson(person);
-        return "sucess";
+        return person.getCompressed();
     }
+
 }

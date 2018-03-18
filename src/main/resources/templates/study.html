@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Component</title>
+</head>
+<body>
+<div id="app">
+
+    <button>컴포넌트 등록</button>
+    <router-link to="/insert">Main</router-link>
+    <router-link to="/list">Main</router-link>
+
+    <hr>
+    여기에 router
+    <router-view>
+
+    </router-view>
+</div>
+<div id="app2">
+    <button v-on:click="getData">제출</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+
+    var Insert = new VueRouter({
+        name: "Insert",
+        el: '#rout',
+        template: `
+    <div>
+        <input type="text" v-model="email"/>{{ email }}<button v-on:click="getCoupon">SEND</button>
+
+    </div>`,
+        methods:{
+            getCoupon () {
+                axios.get("http://localhost:8080/person/insert/"+this.email)
+                    .then(function(response){
+                        this.email = response.data.email
+                        console.log(response)
+                    })
+            }
+        },
+        data: {
+            email: "여기에 이메일을"
+        }
+    });
+
+    var List = new VueRouter({
+        el: '#rout',
+        template: '<div>List</div>',
+        methods: {}
+    });
+
+    /////////////////////////////////////////
+    var routes = [
+        {path: '/insert', component: Insert},
+        {path: '/list', component: List}
+    ]
+
+    var router = new VueRouter({
+        routes
+    });
+
+    ///////////////////////////////////////
+    var app = new Vue({
+        router
+    }).$mount('#app')
+
+
+
+</script>
+</body>
+</html>

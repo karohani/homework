@@ -31,20 +31,20 @@ public class DemoApplicationTests {
 	public void digestIntegrity() throws Exception{
 
 
-		StringTo12LengthMapping a = new StringTo12LengthMapping("www@gmail.com");
+		StringTo12LengthMapping a = new StringTo12LengthMapping("www@daum.net"); // 숫자 1이 들어가면 똑같은 값이 된다.
 		String d1 = a.digest();
 
-		StringTo12LengthMapping b = new StringTo12LengthMapping("www@gmail.com");
+		StringTo12LengthMapping b = new StringTo12LengthMapping("www9@daum.net");
 		String d2 = b.digest();
-		Assert.assertEquals(d1 ,d2);
+		Assert.assertNotEquals(d1 ,d2);
 	}
 
 	@Test
 	public void digestLength() throws Exception{
 
-		StringTo12LengthMapping a = new StringTo12LengthMapping("www@gmail.com");
-
-		Assert.assertEquals(12, a.digest().length());
+		StringTo12LengthMapping a = new StringTo12LengthMapping("www@jlasiejfliasjefliasdfasdfasdfasdfasdfasdfasdfifj.com");
+		System.out.println(a.digest());
+		Assert.assertEquals(16, a.digest().length());
 	}
 
 
