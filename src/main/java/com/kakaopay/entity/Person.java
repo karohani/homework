@@ -12,7 +12,6 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-
 @Table(name = "person", uniqueConstraints={
         @UniqueConstraint(
                 columnNames={"email"}),
@@ -26,8 +25,6 @@ public class Person {
     @Column(name = "ID")
 
     private Long id;
-
-
     private String email;
     private String compressed;
 

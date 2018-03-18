@@ -23,22 +23,24 @@ public class PersonController {
     @RequestMapping(value="/person/list", method= RequestMethod.GET)
     public List<Person> dog(@RequestParam("page") int page, @RequestParam("per_page") int n ){
 
-        HashMap<String, Object> map = new HashMap<>();
         List<Person> personList = personService.loadAll();
-        System.out.println(page + " " + n);
-        map.put("CouponList", personList);
-        map.put("query", "a");
         return personList;
     }
 
     @RequestMapping(value="/person/insert/{email}", method = RequestMethod.GET)
     public String successable(@PathVariable String email){
 
-        Person person = new Person();
-        person.setEmail(email);
-        person = personService.digestEmail(person);
+        Person person = personService.digestEmail(email);
         personService.savePerson(person);
         return person.getCompressed();
+    }
+
+    @RequestMapping(value="/person/find/digest/{coupon}", method = RequestMethod.GET)
+    public Person findBy(@PathVariable String coupon){
+
+        Person person = personService.collisionSaveStretegy(coupon);
+        System.out.println(person.toString());
+        return person;
     }
 
 }

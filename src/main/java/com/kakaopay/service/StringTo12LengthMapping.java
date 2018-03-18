@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 
 
 public class StringTo12LengthMapping {
@@ -24,30 +25,36 @@ public class StringTo12LengthMapping {
         char[] chars = target.toCharArray();
         BigInteger parsed = new BigInteger("1");
         for(char c : chars){
-            System.out.println(chars.toString() + " " + parsed + Character.getNumericValue(c));
-            System.out.println("MULTIPLY" + Character.getNumericValue(c));
             parsed = parsed.multiply(BigInteger.valueOf(Character.getNumericValue(c)));
-            System.out.println("MULTIPLYED" + parsed.toString());
         }
         return parsed;
     }
 
     public String digest(){
 
-        final StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         BigInteger apple = this.parseToInteger(this.origin);
+
+
         do{
             int i = apple.mod(BigInteger.valueOf(62)).intValue();
             sb.append(BASE62[i]);
             apple = apple.divide(BigInteger.valueOf(62));
         }while(! apple.equals(BigInteger.ZERO));
 
-        do{
-            sb.append("A");
-        }while(sb.length() < 16);
+
+        if(16 - sb.length() > 0){
+            char[] ca = new char[16-sb.length()];
+            Arrays.fill(ca, 'A');
+            sb.append(ca);
+        }
+
+//        do{
+//            sb.append(BASE62[0]);
+//        }while(sb.length() < 16);
 
         System.out.println(sb.toString());
-        return sb.toString().substring(0, 16);
+        return sb.substring(0, 16);
     }
 
 }
