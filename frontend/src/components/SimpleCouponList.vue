@@ -1,21 +1,22 @@
 <template>
-  <div>
+  <div v-model="rows">
     <table class="table">
       <thead>
       <tr>
-        <th v-for="(col, key) in columns">{{ col }} {{ key }}</th>
+        <th v-for="(col, key) in columns">{{ col }}</th>
       </tr>
       </thead>
      <tbody>
       <tr v-for="col in rows">
         <td>{{ col.id}} </td>
-        <td>{{ col.name}} </td>
-        <td>{{ col.age}} </td>
-        <td>{{ col.createAt}} </td>
+        <td>{{ col.email}} </td>
+        <td>{{ col.coupon}} </td>
+        <td>{{ col.regDate}} </td>
+        <td>{{ col.updateDate}} </td>
       </tr>
      </tbody>
     </table>
-    <b-pagination size="sm" :total-rows="100" v-model="currentPage" :per-page="10">
+    <b-pagination @click.native="paging" align="center" :total-rows="100" v-model="currentPage" :per-page="5">
     </b-pagination>
     <br>
     {{ currentPage }} page
@@ -27,20 +28,39 @@ export default {
   data () {
     return {
       columns: [
-        'id', 'name', 'age', 'createAt', 'score'
+        'id', 'email', 'coupon', 'regDate', 'updateDate'
       ],
-      rows: [
-        {id: 1, name: 'John', age: 20, createdAt: '201-10-31:9:35 am', score: 0.03343},
-        {id: 2, name: 'Jane', age: 24, createdAt: '2011-10-31', score: 0.03343},
-        {id: 3, name: 'Susan', age: 16, createdAt: '2011-10-30', score: 0.03343},
-        {id: 4, name: 'Chris', age: 55, createdAt: '2011-10-11', score: 0.03343},
-        {id: 5, name: 'Dan', age: 40, createdAt: '2011-10-21', score: 0.03343}
-      ],
-      currentPage: 1
+      rows: this.getList(1),
+      currentPage: 1,
+      rowCount: 0
     }
   },
-  getMaxPage () {
-    return {}
+  methods: {
+    getList (currentPage) {
+      this.$http({
+        method: 'GET',
+        url: 'http://localhost:8080/coupon',
+        params: {
+          page: currentPage,
+          perPage: 10
+        }
+      }).then((result) => {
+        console.log(result.data)
+        this.rows = result.data
+      })
+    },
+    paging () {
+      this.getList(this.currentPage)
+    },
+
+    totalNum() {
+      this.$http({
+        method: 'GET',
+        url: 'http://localhost:8080/coupon/max',
+      }).then((result) => {
+        this.rowCount = result.data
+      })
+    }
   }
 }
 </script>

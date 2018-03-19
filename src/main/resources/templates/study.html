@@ -37,7 +37,7 @@
     </div>`,
         methods:{
             getCoupon () {
-                axios.get("http://localhost:8080/person/insert/"+this.email)
+                axios.get("http://localhost:8080/coupon/insert/"+this.email)
                     .then(function(response){
                         this.email = response.data.email
                         console.log(response)

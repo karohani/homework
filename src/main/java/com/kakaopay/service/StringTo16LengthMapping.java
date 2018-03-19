@@ -2,21 +2,26 @@ package com.kakaopay.service;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigInteger;
 import java.util.Arrays;
 
 
-public class StringTo12LengthMapping {
+@Slf4j
+public class StringTo16LengthMapping {
 
     private String trans;
     private String origin;
     static final char[] BASE62 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
 
-
-    public StringTo12LengthMapping(String origin){
+    public StringTo16LengthMapping(String origin){
 
         this.origin = origin;
+    }
+
+    public StringTo16LengthMapping(){
+
     }
 
     public void setOrigin(String origin){

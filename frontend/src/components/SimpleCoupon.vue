@@ -10,7 +10,7 @@
 </template>
 
 <script>
-
+import axios from 'axios'
 export default {
   data () {
     return {newEmail: '', coupon: ''}
@@ -20,13 +20,27 @@ export default {
       console.log(this.newEmail)
       const baseURI = 'http://localhost:8080'
       console.log(baseURI)
-      localStorage.setItem(this.newEmail, this.newEmail)
       this.coupon = baseURI
-      this.$http.get(`${baseURI}/person/insert/` + this.newEmail)
-        .then((result) => {
-          this.coupon = result.data
+      var data = {email: this.newEmail}
+      if (this.emailValidation(this.newEmail)) {
+        axios({
+          method: 'POST',
+          url: `${baseURI}/coupon`,
+          header: 'application/json',
+          data: data
+        }).then((result) => {
+          this.coupon = result.data.coupon
           console.log(result)
+          this.newEmail = ''
         })
+      }else{
+          this.coupon = 'INVAID EMAIL!!'
+        }
+      }
+    ,
+    emailValidation (email) {
+      const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return regex.test(email)
     }
   }
 }

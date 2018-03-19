@@ -1,18 +1,15 @@
 package com.kakaopay;
 
-import com.kakaopay.entity.Person;
+import com.kakaopay.entity.Coupon;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ConfigurableApplicationContext;
-import com.kakaopay.repository.PersonRepository;
-import org.springframework.context.annotation.Bean;
+import com.kakaopay.repository.CouponRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import javax.servlet.annotation.WebServlet;
-
 @SpringBootApplication
+@EnableAutoConfiguration
 @EnableJpaRepositories
 public class App {
 
@@ -20,11 +17,11 @@ public class App {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(App.class, args);
 
-		PersonRepository personRepository = context.getBean(PersonRepository.class);
-		Person testPerson = new Person();
-		testPerson.setEmail("mail");
-		personRepository.save(testPerson);
-//		personRepository.save(new Perso().setEmail("mail"));
+		CouponRepository couponRepository = context.getBean(CouponRepository.class);
+		Coupon testCoupon = new Coupon();
+		testCoupon.setEmail("mail@naver.com");
+		couponRepository.save(testCoupon);
+//		couponRepository.save(new Perso().setEmail("mail"));
 	}
 
 }

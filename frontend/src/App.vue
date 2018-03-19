@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-
-    <img src="./assets/logo.png">
     <router-link to="/">ADD</router-link>
     <router-link to="/list">LIST</router-link>
     <router-view/>
