@@ -98,8 +98,5 @@ public class ServiceTests {
 		Assert.assertEquals(couponService.isExistCoupon(coupon.getCoupon()), true);
 	}
 
-	@Test
-	public void insertEmail() throws Exception{
 
-	}
 }

@@ -16,7 +16,7 @@
       </tr>
      </tbody>
     </table>
-    <b-pagination v-on:click.native="paging" align="center" :total-rows="100" v-model="currentPage" :per-page="5">
+    <b-pagination v-on:click.native="paging" align="center" :total-rows="100" v-model.lazy="currentPage" :per-page="5">
     </b-pagination>
     <br>
     {{ currentPage }} page
