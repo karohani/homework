@@ -56,10 +56,10 @@ public class CouponController {
     }
 
     @RequestMapping(value="/coupon", method= RequestMethod.GET)
-    public List<Coupon> getA(@RequestParam("page") int page){
-        page -= 1;
-        Pageable paging = PageRequest.of(page, 10);
-        Page<Coupon> result = couponService.loadAll(paging);
+    public List<Coupon> getPageAble(@PageableDefault Pageable pageable){
+
+//        Pageable paging = PageRequest.of(page, 10);
+        Page<Coupon> result = couponService.loadAll(pageable);
         return result.getContent();
 
     }
@@ -71,11 +71,4 @@ public class CouponController {
     }
 
 
-
-    @RequestMapping(value="/coupon/max", method = RequestMethod.GET)
-    public int totalNum(){
-        Pageable paging = PageRequest.of(0, 10);
-        Page<Coupon> result = couponService.loadAll(paging);
-        return result.getNumberOfElements();
-    }
 }

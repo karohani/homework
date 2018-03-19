@@ -68,8 +68,8 @@ public class ServiceTests {
 	@Test public void mainTest() throws Exception{
 		int port = 8080;
 		RestTemplate restTemplate = new RestTemplate();
-		String message = restTemplate.getForObject("http://localhost:" + port + "/", String.class);
-		System.out.println(message);
+		//String message = restTemplate.getForObject("http://localhost:" + port + "/", String.class);
+		//System.out.println(message);
 	}
 
 	@Test public void sameEmail() throws Exception {

@@ -3,7 +3,7 @@
     <table class="table">
       <thead>
       <tr>
-        <th v-for="(col, key) in columns">{{ col }}</th>
+        <th v-for="(col, key) in columns">{{ col }} {{ key }}</th>
       </tr>
       </thead>
      <tbody>
@@ -16,7 +16,7 @@
       </tr>
      </tbody>
     </table>
-    <b-pagination @click.native="paging" align="center" :total-rows="100" v-model="currentPage" :per-page="5">
+    <b-pagination v-on:click.native="paging" align="center" :total-rows="100" v-model="currentPage" :per-page="5">
     </b-pagination>
     <br>
     {{ currentPage }} page
@@ -41,7 +41,7 @@ export default {
         method: 'GET',
         url: 'http://localhost:8080/coupon',
         params: {
-          page: currentPage,
+          page: currentPage - 1,
           perPage: 10
         }
       }).then((result) => {
@@ -51,16 +51,8 @@ export default {
     },
     paging () {
       this.getList(this.currentPage)
-    },
-
-    totalNum() {
-      this.$http({
-        method: 'GET',
-        url: 'http://localhost:8080/coupon/max',
-      }).then((result) => {
-        this.rowCount = result.data
-      })
     }
   }
 }
+
 </script>

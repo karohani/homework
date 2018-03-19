@@ -11,6 +11,8 @@
 
 <script>
 import axios from 'axios'
+import validator from 'validator'
+
 export default {
   data () {
     return {newEmail: '', coupon: ''}
@@ -22,7 +24,7 @@ export default {
       console.log(baseURI)
       this.coupon = baseURI
       var data = {email: this.newEmail}
-      if (this.emailValidation(this.newEmail)) {
+      if (validator.isEmail(this.newEmail)) {
         axios({
           method: 'POST',
           url: `${baseURI}/coupon`,
@@ -33,15 +35,14 @@ export default {
           console.log(result)
           this.newEmail = ''
         })
-      }else{
-          this.coupon = 'INVAID EMAIL!!'
-        }
+      } else {
+        this.coupon = 'INVAID EMAIL!!'
       }
-    ,
-    emailValidation (email) {
-      const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return regex.test(email)
     }
+    // emailValidation (email) {
+    //   const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    //   return regex.test(email)
+    // }
   }
 }
 </script>
